@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
@@ -7,30 +7,21 @@ function App() {
 
 
   const [letter, setletter] = useState(getRandomWord(words))
-  const [keyPress, SetkeyPress] = useState('')
+  // const [keyPress, SetkeyPress] = useState('')
   const [guesses, setGuess] = useState([])
 
-  // function KeyPressElement() {
-  //   function handleKeyPress() {
-  //     console.log("You pressed a key.")
-  //   }
-  //   return (
-  //     <div>
-  //       <input type="text" onKeyPress={(e) => handleKeyPress(e)} />
-  //     </div>
-  //   )
-  // }
-
-  // const handler = (e) => {
-  //   SetkeyPress(e.key)
-
-  // }
-
-  // <input type="text" onKeyPress={(e) => handler(e)} />
-
-  // console.log(handler())
 
 
+  useEffect(() => {
+    document.addEventListener('keypress', function (e) {
+
+      if (!guesses.includes(e.key)) {
+
+        setGuess(e.key)
+      }
+
+    })
+  }, [])
 
 
   function getRandomWord(words) {
@@ -39,23 +30,26 @@ function App() {
   }
 
 
-  function getRightGuesses() {
+  function rightGuesses() {
     return guesses.filter(function (word) {
       return letter.includes(word)
     })
   }
 
-  function getRightGuesses() {
+  function wrongGuesses() {
     return guesses.filter(function (word) {
       return !letter.includes(word)
     })
   }
+
+  // const allWrongGuesses = wrongGuesses()
 
 
   return (
     <div className="App">
 
       <span>{letter}</span>
+      <span> {wrongGuesses.length} </span>
 
     </div>
   )
