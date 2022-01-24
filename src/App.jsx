@@ -7,25 +7,49 @@ function App() {
 
 
   const [letter, setletter] = useState(getRandomWord(words))
+  const [keyPress, SetkeyPress] = useState('')
+  const [guesses, setGuess] = useState([])
 
-  function KeyPressElement() {
-    function handleKeyPress() {
-      console.log("You pressed a key.")
-    }
-    return (
-      <div>
-        <input type="text" onKeyPress={(e) => handleKeyPress(e)} />
-      </div>
-    )
-  }
+  // function KeyPressElement() {
+  //   function handleKeyPress() {
+  //     console.log("You pressed a key.")
+  //   }
+  //   return (
+  //     <div>
+  //       <input type="text" onKeyPress={(e) => handleKeyPress(e)} />
+  //     </div>
+  //   )
+  // }
 
-  console.log(KeyPressElement())
+  // const handler = (e) => {
+  //   SetkeyPress(e.key)
+
+  // }
+
+  // <input type="text" onKeyPress={(e) => handler(e)} />
+
+  // console.log(handler())
+
+
+
 
   function getRandomWord(words) {
     const randomWord = Math.floor(Math.random() * words.length)
     return words[randomWord]
   }
 
+
+  function getRightGuesses() {
+    return guesses.filter(function (word) {
+      return letter.includes(word)
+    })
+  }
+
+  function getRightGuesses() {
+    return guesses.filter(function (word) {
+      return !letter.includes(word)
+    })
+  }
 
 
   return (
